@@ -1,0 +1,472 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500&display=swap");
+
+:root {
+  --noir: #060607;
+  --noir-releve: #0d0e10;
+  --argent: #eceef1;
+  --argent-doux: #b7bcc4;
+  --gris: #7d848e;
+  --rouge: #d91f2d;
+  --rouge-vif: #ff4651;
+  --trait: rgba(255, 255, 255, 0.09);
+  --trait-fort: rgba(255, 255, 255, 0.16);
+
+  --display: "Archivo", "Helvetica Neue", sans-serif;
+  --corps: "IBM Plex Sans", "Helvetica Neue", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--corps);
+  font-weight: 300;
+  color: var(--argent-doux);
+  background: var(--noir);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Grain : texture fine qui casse l'aplat noir */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ───────── Structure ───────── */
+
+.page {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 0 1.5rem 5rem;
+}
+
+@media (min-width: 900px) {
+  .page {
+    padding: 0 3rem 8rem;
+  }
+}
+
+.bande {
+  max-width: 44rem;
+}
+
+/* ───────── Hero ───────── */
+
+.hero {
+  position: relative;
+  padding: 4.5rem 0 4rem;
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    padding: 7rem 0 6rem;
+  }
+}
+
+/* Halo rouge diffus derrière le logo */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(42rem, 110%);
+  height: 22rem;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(217, 31, 45, 0.17),
+    transparent 68%
+  );
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.logo {
+  display: block;
+  width: min(100%, 21rem);
+  height: auto;
+  margin: 0 auto;
+  mix-blend-mode: screen;
+}
+
+@media (min-width: 900px) {
+  .logo {
+    width: 32rem;
+  }
+}
+
+.accroche {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 5.2vw, 3.1rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--argent);
+  max-width: 20ch;
+  margin: 2rem auto 0;
+}
+
+.accroche em {
+  font-style: normal;
+  color: var(--rouge-vif);
+}
+
+.sous-accroche {
+  margin: 1.5rem auto 0;
+  font-size: 1.05rem;
+  max-width: 44ch;
+}
+
+/* Barre oblique décorative, écho des angles du logo */
+.oblique {
+  height: 3px;
+  width: 7rem;
+  margin-top: 2.5rem;
+  background: linear-gradient(90deg, var(--rouge), rgba(217, 31, 45, 0));
+  transform: skewX(-28deg);
+}
+
+/* Centrée, l'oblique s'éteint des deux côtés */
+.hero .oblique,
+.titre-page + .oblique {
+  width: 9rem;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(
+    90deg,
+    rgba(217, 31, 45, 0),
+    var(--rouge),
+    rgba(217, 31, 45, 0)
+  );
+}
+
+.titre-page {
+  text-align: center;
+}
+
+.titre-page + .oblique + .note {
+  text-align: center;
+}
+
+/* ───────── Sections ───────── */
+
+section {
+  padding-top: 4.5rem;
+}
+
+@media (min-width: 900px) {
+  section {
+    padding-top: 7rem;
+  }
+}
+
+.etiquette {
+  font-family: var(--display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--gris);
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.etiquette::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--trait-fort), transparent);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  color: var(--argent);
+  letter-spacing: -0.015em;
+}
+
+.titre-page {
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.08;
+  padding-top: 4rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 2.25rem 0 0.6rem;
+}
+
+p {
+  margin-bottom: 1.1rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+ul {
+  margin: 0 0 1.1rem 0;
+  list-style: none;
+}
+
+li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.65rem;
+}
+
+li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  width: 7px;
+  height: 2px;
+  background: var(--rouge);
+  transform: skewX(-28deg);
+}
+
+strong {
+  color: var(--argent);
+  font-weight: 500;
+}
+
+/* ───────── Prestations ───────── */
+
+.prestation {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 1.5rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--trait);
+  transition: border-color 0.35s ease;
+}
+
+.prestation:last-of-type {
+  border-bottom: 1px solid var(--trait);
+}
+
+.prestation:hover {
+  border-color: var(--trait-fort);
+}
+
+.prestation-num {
+  font-family: var(--display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--gris);
+  padding-top: 0.45rem;
+  transition: color 0.35s ease;
+}
+
+.prestation:hover .prestation-num {
+  color: var(--rouge-vif);
+}
+
+.prestation-nom {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--argent);
+  line-height: 1.25;
+}
+
+@media (min-width: 900px) {
+  .prestation-nom {
+    font-size: 1.6rem;
+  }
+}
+
+.prestation-detail {
+  grid-column: 2;
+  max-width: 48ch;
+  font-size: 0.975rem;
+}
+
+.prestation-prix {
+  grid-column: 2;
+  margin-top: 0.75rem;
+  font-family: var(--display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--rouge-vif);
+}
+
+/* ───────── Contact ───────── */
+
+.contact-liens {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.contact-lien {
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 4.2vw, 2.1rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--argent);
+  text-decoration: none;
+  width: fit-content;
+  position: relative;
+  padding-bottom: 0.15em;
+}
+
+.contact-lien::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--rouge);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-lien:hover::after,
+.contact-lien:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.note {
+  margin-top: 1.75rem;
+  font-size: 0.95rem;
+  color: var(--gris);
+}
+
+/* ───────── Mentions ───────── */
+
+.mentions {
+  background: var(--noir-releve);
+  border: 1px solid var(--trait);
+  border-left: 2px solid var(--rouge);
+  padding: 1.75rem;
+  font-size: 0.93rem;
+}
+
+@media (min-width: 900px) {
+  .mentions {
+    padding: 2.25rem 2.5rem;
+  }
+}
+
+/* ───────── Liens et navigation ───────── */
+
+a {
+  color: var(--rouge-vif);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 70, 81, 0.3);
+  transition: border-color 0.25s ease;
+}
+
+a:hover {
+  border-color: var(--rouge-vif);
+}
+
+.retour {
+  display: inline-block;
+  margin-top: 3rem;
+  font-family: var(--display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gris);
+  border-bottom: none;
+}
+
+.retour:hover {
+  color: var(--rouge-vif);
+}
+
+footer {
+  margin-top: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--trait);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  align-items: center;
+  font-family: var(--display);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+footer a {
+  color: var(--gris);
+  border-bottom: none;
+}
+
+footer a:hover {
+  color: var(--argent);
+}
+
+.footer-marque {
+  margin-left: auto;
+  color: #4a505a;
+}
+
+/* ───────── Entrée en cascade ───────── */
+
+.apparait {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: monte 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.d1 { animation-delay: 0.05s; }
+.d2 { animation-delay: 0.17s; }
+.d3 { animation-delay: 0.29s; }
+.d4 { animation-delay: 0.41s; }
+
+@keyframes monte {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .apparait {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
